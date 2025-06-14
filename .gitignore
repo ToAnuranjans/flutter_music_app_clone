@@ -1,0 +1,71 @@
+# ================================
+# Flutter - client/
+# ================================
+client/.dart_tool/
+client/.flutter-plugins
+client/.flutter-plugins-dependencies
+client/.packages
+client/.pub-cache/
+client/build/
+client/generated_plugin_registrant.dart
+
+client/android/.gradle/
+client/android/app/build/
+client/android/local.properties
+client/android/.idea/
+
+client/ios/Pods/
+client/ios/.symlinks/
+client/ios/Flutter/Flutter.framework
+client/ios/Flutter/Flutter.podspec
+client/ios/.generated/
+
+client/macos/Flutter/ephemeral/
+client/macos/Pods/
+client/macos/.generated/
+
+client/web/.dart_tool/
+client/web/build/
+
+client/linux/Flutter/ephemeral/
+client/windows/Flutter/ephemeral/
+
+client/.idea/
+client/*.iml
+client/.vscode/
+
+client/*.log
+client/*.lock
+client/*.tmp
+client/*.swp
+client/*.DS_Store
+
+# ================================
+# .NET Core - server/
+# ================================
+server/bin/
+server/obj/
+server/out/
+server/*.user
+server/*.suo
+server/*.sln.docstates
+
+server/.vs/
+server/.vscode/
+server/.idea/
+
+server/ScaffoldingReadMe.txt
+server/packages/
+server/project.lock.json
+server/project.fragment.lock.json
+server/artifacts/
+
+server/*.nupkg
+server/*.snupkg
+
+server/_ReSharper*/
+server/*.DotSettings.user
+server/.tye/
+server/*.dotCover
+server/*.dbmdl
+server/*.sqlite
