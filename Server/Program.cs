@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<JwtHelper>();
 builder.Services.AddAuthorization();
 
@@ -34,9 +35,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key!))
         };
     });
-
-Console.WriteLine("JWT Key: " + builder.Configuration["Jwt:Key"]);
-Console.WriteLine("ConnectionString: " + builder.Configuration.GetConnectionString("pgdb"));
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

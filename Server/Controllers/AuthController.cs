@@ -7,14 +7,9 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController(IAuthService auth) : ControllerBase
     {
-        private readonly IAuthService _auth;
-
-        public AuthController(IAuthService auth)
-        {
-            _auth = auth;
-        }
+        private readonly IAuthService _auth = auth;
 
         [HttpPost("signup")]
         public async Task<IActionResult> Signup(UserSignupDto dto)
@@ -26,7 +21,7 @@ namespace Server.Controllers
             {
                 return BadRequest("Email already exists");
             }
-            return Created("", new UserDto(createdUser));
+            return CreatedAtAction(nameof(UsersController.GetUserById), "Users", new { id = createdUser.Id }, new UserDto(createdUser));
         }
 
         [HttpPost("login")]
