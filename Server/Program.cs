@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Server.Data;
+using Server.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddSingleton<JwtHelper>();
 builder.Services.AddAuthorization();
 
@@ -39,7 +42,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("pgdb"));
+    options
+    .UseNpgsql(builder.Configuration.GetConnectionString("pgdb")).EnableSensitiveDataLogging();
 });
 
 
@@ -52,11 +56,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
+app.UseBrowserCacheMiddleware("Browser Cache 1");
+app.UseAuditMiddleware();
 app.UseAuthorization();
+app.UseLogMiddleware("Log Mid 1");
+app.UseBrowserCacheMiddleware("Browser Cache 3");
+app.MapControllers(); // 💥 Always Last
 
-app.MapControllers();
 
 app.Run();

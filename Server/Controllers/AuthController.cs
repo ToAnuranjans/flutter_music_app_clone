@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Attributes;
 using Server.Dtos;
 using Server.Interfaces;
 
@@ -25,8 +26,10 @@ namespace Server.Controllers
         }
 
         [HttpPost("login")]
+        [AuditLog("My Log")]
         public async Task<IActionResult> Login(UserLoginDto dto)
         {
+            Console.WriteLine("Login Controller");
             var token = await _auth.LoginAsync(dto);
             return token != null ? Ok(new { token }) : Unauthorized("Invalid credentials");
         }
