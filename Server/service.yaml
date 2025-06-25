@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: musicapi-service
+spec:
+  selector:
+    app: musicapi
+  ports:
+  - protocol: TCP
+    port: 80        # Exposed port
+    targetPort: 5000  # Your app's internal port
+  type: LoadBalancer  # Use NodePort if not on a cloud provider
